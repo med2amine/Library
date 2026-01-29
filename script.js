@@ -33,9 +33,23 @@ function display_books(mylibrary){
         heading.textContent = `Title : ${mylibrary[i].title}`
         author.textContent = `author : ${mylibrary[i].author}`
         numpages.textContent = `number of pages : ${mylibrary[i].num_pages}`
-        readstat.textContent = `status : ${mylibrary[i].read}`
+        readstat.textContent = `finished the book : ${mylibrary[i].read}`
         changestat.textContent = "Read/Not Read"
         remove.textContent = "Remove book"
+
+        changestat.addEventListener("click", () => {
+            const id = newBook.dataset.id;
+            const book = mylibrary.find(b => b.id === id);
+            book.read = !book.read;
+            display_books(mylibrary);
+        });
+
+        remove.addEventListener("click", () => {
+            const id = newBook.dataset.id;
+            mylibrary = mylibrary.filter(b => b.id !== id);
+            display_books(mylibrary);
+        });
+
 
         newBook.appendChild(heading)
         newBook.appendChild(author)
@@ -83,5 +97,7 @@ form.addEventListener("submit",(e) => {
 
 
 document.querySelector("header").appendChild(New_btn)
+
+
 
 
